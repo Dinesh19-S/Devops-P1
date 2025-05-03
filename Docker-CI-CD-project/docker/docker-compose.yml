@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: your-dockerhub-username/node-ci-cd-demo
+    environment:
+      - NODE_ENV=development
+    ports:
+      - "8080:8080"
+    volumes:
+      - ../app:/usr/src/app
+      - /usr/src/app/node_modules
+
+  app-prod:
+    image: your-dockerhub-username/node-ci-cd-demo
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "80:8080"
+    restart: unless-stopped
